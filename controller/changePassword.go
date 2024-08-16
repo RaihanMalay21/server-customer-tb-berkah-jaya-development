@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 	"golang.org/x/crypto/bcrypt"
 
-	config "github.com/RaihanMalay21/config-TB_Berkah_Jaya"
+	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
 	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )

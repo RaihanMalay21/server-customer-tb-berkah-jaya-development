@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
 
-	config "github.com/RaihanMalay21/config-TB_Berkah_Jaya"
+	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
 	middlewares "github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya"
 	controller "github.com/RaihanMalay21/server-customer-TB-Berkah-Jaya/controller"
 )

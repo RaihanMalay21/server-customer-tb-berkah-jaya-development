@@ -1,7 +1,9 @@
 filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
 filippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=
-github.com/RaihanMalay21/config-TB_Berkah_Jaya v0.0.0-20240815130344-03450c01e67f h1:W4NqwsF03JEzh4T07r43b0LSWCEBIPHH6DjHXbXxWbQ=
-github.com/RaihanMalay21/config-TB_Berkah_Jaya v0.0.0-20240815130344-03450c01e67f/go.mod h1:gTCw1PdKYgpsPMzFfIRflRMZG2LRZTH98ahlWXgl4Z8=
+github.com/RaihanMalay21/config-TB_Berkah_Jaya v0.0.0-20240814065814-87531eb1c6db h1:/qLG7VzkFsilfwcA70EPFWiQBDdTzNv2IwHuIDj8/wU=
+github.com/RaihanMalay21/config-TB_Berkah_Jaya v0.0.0-20240814065814-87531eb1c6db/go.mod h1:gTCw1PdKYgpsPMzFfIRflRMZG2LRZTH98ahlWXgl4Z8=
+github.com/RaihanMalay21/config-tb-berkah-jaya v0.0.0-20240816080202-89dea7bb4e63 h1:GnCSGxbJ4/0oG3zZKyROmsO+rzDc9C7Wlia1LQOkze8=
+github.com/RaihanMalay21/config-tb-berkah-jaya v0.0.0-20240816080202-89dea7bb4e63/go.mod h1:YjPFsoWECYR/hky7IiNNJ3OpPuk0ps/XWcBqfnmBZ3w=
 github.com/RaihanMalay21/helper_TB_Berkah_Jaya v0.0.0-20240814070420-03c9c77d5327 h1:R3+LC9JuAp4s3k0S+UcFTnSYY2jffJNl4+qrACtiw+A=
 github.com/RaihanMalay21/helper_TB_Berkah_Jaya v0.0.0-20240814070420-03c9c77d5327/go.mod h1:bZyMuvs6IcUWPS3eCuu0MYy3vbYiDHH4zPl+n1DKZdQ=
 github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya v0.0.0-20240814064550-452663fa833a h1:DqWfBBoqBiop980dDYgtCgBP7RYZWr/4XyJIk00UWc8=
