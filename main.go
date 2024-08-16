@@ -30,7 +30,7 @@ func main() {
 
 	log.Fatal(http.ListenAndServe(":8080", 
 		handlers.CORS(
-			handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+			handlers.AllowedOrigins([]string{"http://localhost:3000", "https://fe-tb-berkah-jaya-igcfjdj5fa-uc.a.run.app", "https://server-registry-tb-berkah-jaya-igcfjdj5fa-uc.a.run.app"}),
 			handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 			handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
 			handlers.AllowCredentials(),
