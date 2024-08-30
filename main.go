@@ -26,6 +26,7 @@ func main() {
 	api.HandleFunc("/user/remove/nota/not/valid", controller.RemoveSubmissionPoin).Methods("POST")
 
 	api.HandleFunc("/change/password", controller.ChangePassword).Methods("POST")
+	api.Use(middlewares.JWTMiddleware)
 
 	log.Fatal(http.ListenAndServe(":8080", 
 		handlers.CORS(
@@ -35,5 +36,4 @@ func main() {
 			handlers.AllowCredentials(),
 		)(r)))
 
-	api.Use(middlewares.JWTMiddleware)
 }
