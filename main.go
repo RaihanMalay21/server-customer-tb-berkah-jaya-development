@@ -45,10 +45,10 @@ func corsMiddlewares(next http.Handler) http.Handler {
 		origin := r.Header.Get("Origin")
 		fmt.Println("Origin received:", origin)
 
-		// allowedOrigins := os.Getenv("CORS_ALLOW_ORIGINS")
+		allowedOrigins := "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app"
 
 		if origin == allowedOrigins {
-			w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
+			w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
