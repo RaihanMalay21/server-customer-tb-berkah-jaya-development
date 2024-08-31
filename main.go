@@ -23,7 +23,7 @@ func main() {
 
 	config.DB_Connection()
 	
-	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET", "OPTIONS")
 	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
 	api.Use(middlewares.JWTMiddleware)
