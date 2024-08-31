@@ -14,10 +14,16 @@ import (
 func main() {
 	r := mux.NewRouter()
 
+	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+	r.HandleFunc("/berkahjaya/get/hadiah", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
+		w.Header().Set("Access-Control-Allow-Methods", "GET")
+		w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
+	}).Methods(http.MethodOptions)
+	
 	r.Use(corsMiddlewares)
 	config.DB_Connection()
 	
-	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
 	api := r.PathPrefix("/berkahjaya").Subrouter()
 	api.Use(middlewares.JWTMiddleware)
 	api.HandleFunc("/gifts/have/change/user", controller.GiftHasExchanged).Methods("GET")
