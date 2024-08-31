@@ -13,10 +13,20 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+
+	r.Use(handlers.CORS(
+		handlers.AllowedOrigins([]string{"https://fe-tb-berkah-jaya-igcfjdj5fa-uc.a.run.app"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
+		handlers.AllowCredentials(),
+	))
 
 	config.DB_Connection()
+	
+	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
+	api.Use(middlewares.JWTMiddleware)
 	api.HandleFunc("/gifts/have/change/user", controller.GiftHasExchanged).Methods("GET")
 	api.HandleFunc("/users/data", controller.DataUser).Methods("GET")
 	api.HandleFunc("/proses/poin/verify", controller.NotaUserCanceled).Methods("GET")
@@ -24,16 +34,7 @@ func main() {
 	api.HandleFunc("/tukar/poin/hadiah", controller.ExchangePoin).Methods("POST") 
 	api.HandleFunc("/user/proses/hadiah", controller.HadiahUser).Methods("GET")
 	api.HandleFunc("/user/remove/nota/not/valid", controller.RemoveSubmissionPoin).Methods("POST")
-
 	api.HandleFunc("/change/password", controller.ChangePassword).Methods("POST")
-	api.Use(middlewares.JWTMiddleware)
-
-	log.Fatal(http.ListenAndServe(":8080", 
-		handlers.CORS(
-			handlers.AllowedOrigins([]string{"https://fe-tb-berkah-jaya-igcfjdj5fa-uc.a.run.app"}),
-			handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
-			handlers.AllowedHeaders([]string{"X-Requested-With: XMLHttpRequest", "Content-Type", "Authorization"}),
-			handlers.AllowCredentials(),
-		)(r)))
-
+	
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
