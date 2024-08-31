@@ -34,6 +34,7 @@ func main() {
 func corsMiddlewares(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
+		fmt.Println("Origin received:", origin)
 
 		allowedOrigins := map[string]bool{
 			"https://fe-tb-berkah-jaya-750892348569.us-central1.run.app" : true,
