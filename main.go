@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"fmt"
+	"os"
 
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
 	middlewares "github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya"
@@ -15,6 +16,12 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+	r.HandleFunc("/berkahjaya/get/hadiah", func(w http.ResponseWriter, r *http.Request) {
+		allowedOrigin := os.Getenv("ALLOW_ORIGIN")
+		w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+		w.Header().Set("Access-Control-Allow-Methods", "GET")
+		w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
+	}).Methods(http.MethodOptions)
 
 	r.Use(corsMiddlewares)
 	config.DB_Connection()
@@ -38,11 +45,9 @@ func corsMiddlewares(next http.Handler) http.Handler {
 		origin := r.Header.Get("Origin")
 		fmt.Println("Origin received:", origin)
 
-		allowedOrigins := map[string]bool{
-			"https://fe-tb-berkah-jaya-750892348569.us-central1.run.app" : true,
-		}
+		allowedOrigins := os.Getenv("CORS_ALLOW_ORIGINS")
 
-		if allowedOrigins[origin] {
+		if origin == allowedOrigins {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
