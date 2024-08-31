@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
-	"github.com/gorilla/handlers"
 
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
 	middlewares "github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya"
@@ -43,8 +42,8 @@ func corsMiddlewares(next http.Handler) http.Handler {
 		if allowedOrigins[origin] {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-			W.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
-			W.Header().Set("Access-Control-Allow-Credentials", "true")
+			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
+			w.Header().Set("Access-Control-Allow-Credentials", "true")
 		}
 
 		if r.Method == http.MethodOptions {
