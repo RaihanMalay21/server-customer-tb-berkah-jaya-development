@@ -16,6 +16,7 @@ func main() {
 	r := mux.NewRouter()
 
 	config.DB_Connection()
+	r.Use(mux.CORSMethodMiddleware(r))
 	r.Use(corsMiddlewares)
 	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
 	
