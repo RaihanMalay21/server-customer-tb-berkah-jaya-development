@@ -23,7 +23,7 @@ func main() {
 		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
 		w.Header().Set("Access-Control-Allow-Max-Age", "86400")
 		w.WriteHeader(http.StatusNoContent)
-	}).Methods(http.MethodOptions)
+	}).Methods("OPTIONS")
 
 	r.Use(corsMiddlewares)
 	
