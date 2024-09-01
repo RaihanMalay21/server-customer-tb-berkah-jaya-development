@@ -16,19 +16,19 @@ func main() {
 	r := mux.NewRouter()
 	config.DB_Connection()
 	
-	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET", "OPTIONS")
 	r.Use(corsMiddlewares)
 	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
 	api.Use(middlewares.JWTMiddleware)
-	api.HandleFunc("/gifts/have/change/user", controller.GiftHasExchanged).Methods("GET")
-	api.HandleFunc("/users/data", controller.DataUser).Methods("GET")
-	api.HandleFunc("/proses/poin/verify", controller.NotaUserCanceled).Methods("GET")
-	api.HandleFunc("/scan/poin", controller.InputNota).Methods("POST")
-	api.HandleFunc("/tukar/poin/hadiah", controller.ExchangePoin).Methods("POST") 
-	api.HandleFunc("/user/proses/hadiah", controller.HadiahUser).Methods("GET")
-	api.HandleFunc("/user/remove/nota/not/valid", controller.RemoveSubmissionPoin).Methods("POST")
-	api.HandleFunc("/change/password", controller.ChangePassword).Methods("POST")
+	api.HandleFunc("/gifts/have/change/user", controller.GiftHasExchanged).Methods("GET", "OPTIONS")
+	api.HandleFunc("/users/data", controller.DataUser).Methods("GET", "OPTIONS")
+	api.HandleFunc("/proses/poin/verify", controller.NotaUserCanceled).Methods("GET", "OPTIONS")
+	api.HandleFunc("/scan/poin", controller.InputNota).Methods("POST", "OPTIONS")
+	api.HandleFunc("/tukar/poin/hadiah", controller.ExchangePoin).Methods("POST", "OPTIONS") 
+	api.HandleFunc("/user/proses/hadiah", controller.HadiahUser).Methods("GET", "OPTIONS")
+	api.HandleFunc("/user/remove/nota/not/valid", controller.RemoveSubmissionPoin).Methods("POST", "OPTIONS")
+	api.HandleFunc("/change/password", controller.ChangePassword).Methods("POST", "OPTIONS")
 	
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
