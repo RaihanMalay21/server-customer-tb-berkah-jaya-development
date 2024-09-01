@@ -16,15 +16,15 @@ func main() {
 	r := mux.NewRouter()
 	config.DB_Connection()
 
-	r.Use(mux.CORSMethodMiddleware(r))
-
+	
 	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
 	r.HandleFunc("/berkahjaya/get/hadiah", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
 		w.Header().Set("Access-Control-Allow-Max-Age", "86400")
 		w.WriteHeader(http.StatusNoContent)
 	}).Methods("OPTIONS")
-
+		
+	r.Use(mux.CORSMethodMiddleware(r))
 	r.Use(corsMiddlewares)
 	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
