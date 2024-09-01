@@ -4,7 +4,8 @@ import (
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
-	"fmt"
+	"github.com/gorilla/handlers"
+	// "fmt"
 	// "os"
 
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
@@ -15,17 +16,9 @@ import (
 func main() {
 	r := mux.NewRouter()
 	config.DB_Connection()
-
 	
 	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
-	r.HandleFunc("/berkahjaya/get/hadiah", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
-		w.Header().Set("Access-Control-Allow-Max-Age", "86400")
-		w.WriteHeader(http.StatusNoContent)
-	}).Methods("OPTIONS")
-		
-	r.Use(mux.CORSMethodMiddleware(r))
-	r.Use(corsMiddlewares)
+	// r.Use(corsMiddlewares)
 	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
 	api.Use(middlewares.JWTMiddleware)
@@ -38,27 +31,32 @@ func main() {
 	api.HandleFunc("/user/remove/nota/not/valid", controller.RemoveSubmissionPoin).Methods("POST")
 	api.HandleFunc("/change/password", controller.ChangePassword).Methods("POST")
 	
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(
+		handlers.allowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
+		handlers.AllowCredentials(),
+	)(r)))
 }
 
-func corsMiddlewares(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		origin := r.Header.Get("Origin")
-		fmt.Println("Origin received:", origin)
+// func corsMiddlewares(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		origin := r.Header.Get("Origin")
+// 		fmt.Println("Origin received:", origin)
 
-		allowedOrigins := "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app"
+// 		allowedOrigins := "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app"
 
-		if origin == allowedOrigins {
-			w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
-			w.Header().Set("Access-Control-Allow-Credentials", "true")
-		}
+// 		if origin == allowedOrigins {
+// 			w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
+// 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+// 			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
+// 			w.Header().Set("Access-Control-Allow-Credentials", "true")
+// 		}
 
-		if r.Method == http.MethodOptions {
-			return
-		}
+// 		if r.Method == http.MethodOptions {
+// 			return
+// 		}
 
-		next.ServeHTTP(w, r)
-	})
-}
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
