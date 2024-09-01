@@ -15,16 +15,9 @@ import (
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
-	r.HandleFunc("/berkahjaya/get/hadiah", func(w http.ResponseWriter, r *http.Request) {
-		// allowedOrigin := os.Getenv("ALLOW_ORIGIN")
-		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
-		w.Header().Set("Access-Control-Allow-Methods", "GET")
-		w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
-	}).Methods(http.MethodOptions)
-
-	r.Use(corsMiddlewares)
 	config.DB_Connection()
+	r.Use(corsMiddlewares)
+	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
 	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
 	api.Use(middlewares.JWTMiddleware)
@@ -45,18 +38,10 @@ func corsMiddlewares(next http.Handler) http.Handler {
 		origin := r.Header.Get("Origin")
 		fmt.Println("Origin received:", origin)
 
-		allowedOrigins := "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app"
-
-		if origin == allowedOrigins {
-			w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
-			w.Header().Set("Access-Control-Allow-Credentials", "true")
-		}
-
-		if r.Method == http.MethodOptions {
-			return
-		}
+		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 		next.ServeHTTP(w, r)
 	})
