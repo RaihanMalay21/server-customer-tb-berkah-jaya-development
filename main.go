@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	// "github.com/gorilla/handlers"
 	"fmt"
-	
+
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
 	middlewares "github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya"
 	controller "github.com/RaihanMalay21/server-customer-TB-Berkah-Jaya/controller"
@@ -38,7 +38,7 @@ func corsMiddlewares(next http.Handler) http.Handler {
 		origin := r.Header.Get("Origin")
 		fmt.Println("Origin received:", origin)
 
-		allowedOrigins := "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app"
+		allowedOrigins := "http://localhost:3000"
 
 		if origin == allowedOrigins {
 			w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
