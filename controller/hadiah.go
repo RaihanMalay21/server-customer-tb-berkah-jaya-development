@@ -10,6 +10,9 @@ import (
 )
 
 func Hadiah(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Methods", "GET")
 	// inialisasi field hadiah
 	var gethadiah []models.Hadiah
 	if err := config.DB.Find(&gethadiah).Error; err != nil {

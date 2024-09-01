@@ -14,11 +14,18 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-
 	config.DB_Connection()
+
 	r.Use(mux.CORSMethodMiddleware(r))
-	r.Use(corsMiddlewares)
+
 	r.HandleFunc("/berkahjaya/get/hadiah", controller.Hadiah).Methods("GET")
+	r.HandleFunc("/berkahjaya/get/hadiah", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
+		w.Header().Set("Access-Control-Allow-Max-Age", "86400")
+		w.WriteHeader(http.StatusNoContent)
+	}).Methods(http.MethodOptions)
+
+	r.Use(corsMiddlewares)
 	
 	api := r.PathPrefix("/berkahjaya").Subrouter()
 	api.Use(middlewares.JWTMiddleware)
@@ -39,10 +46,18 @@ func corsMiddlewares(next http.Handler) http.Handler {
 		origin := r.Header.Get("Origin")
 		fmt.Println("Origin received:", origin)
 
-		w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
-		w.Header().Set("Access-Control-Allow-Credentials", "true")
+		allowedOrigins := "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app"
+
+		if origin == allowedOrigins {
+			w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+			w.Header().Set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
+			w.Header().Set("Access-Control-Allow-Credentials", "true")
+		}
+
+		if r.Method == http.MethodOptions {
+			return
+		}
 
 		next.ServeHTTP(w, r)
 	})
