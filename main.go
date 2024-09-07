@@ -7,9 +7,9 @@ import (
 	// "github.com/gorilla/handlers"
 	"fmt"
 
-	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
+	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
 	middlewares "github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya"
-	controller "github.com/RaihanMalay21/server-customer-TB-Berkah-Jaya/controller"
+	"github.com/RaihanMalay21/server-customer-tb-berkah-jaya/controller"
 )
 
 func main() {

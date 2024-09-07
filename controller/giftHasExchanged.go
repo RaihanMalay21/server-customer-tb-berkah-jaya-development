@@ -3,7 +3,7 @@ package controller
 import (
 	"log"
 	"net/http" 
-	config "github.com/RaihanMalay21/config-tb-berkah-jaya"
+	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
 	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
