@@ -30,7 +30,7 @@ func main() {
 	api.HandleFunc("/user/remove/nota/not/valid", controller.RemoveSubmissionPoin).Methods("POST", "OPTIONS")
 	api.HandleFunc("/change/password", controller.ChangePassword).Methods("POST", "OPTIONS")
 	
-	log.Fatal(http.ListenAndServe(":8081", r))
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
 // func corsMiddlewares(next http.Handler) http.Handler {
