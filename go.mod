@@ -4,7 +4,7 @@ go 1.21.5
 
 require (
 	github.com/RaihanMalay21/config-tb-berkah-jaya-development v0.0.0-20240903083322-0ee1fa213f14 // indirect
-	github.com/RaihanMalay21/helper_TB_Berkah_Jaya v0.0.0-20240903084619-25b62611ab82 // indirect
+	github.com/RaihanMalay21/helper_TB_Berkah_Jaya v0.0.0-20240907080440-7e2dacf55ad6 // indirect
 	github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya v0.0.0-20240903084358-a49e073650b8 // indirect
 	github.com/RaihanMalay21/models_TB_Berkah_Jaya v0.0.0-20240903065552-055e854f0e7c // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
