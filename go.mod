@@ -5,7 +5,6 @@ go 1.21.5
 require (
 	github.com/RaihanMalay21/config-tb-berkah-jaya v0.0.0-20240909070015-06e12d05cc98
 	github.com/RaihanMalay21/config-tb-berkah-jaya-development v0.0.0-20240909064308-c61e9a1bc895
-	github.com/RaihanMalay21/helper_TB_Berkah_Jaya v0.0.0-20240909053141-859f0384e8e2
 	github.com/RaihanMalay21/middlewares_TB_Berkah_Jaya v0.0.0-20240909070629-73bc914d4422
 	github.com/RaihanMalay21/models_TB_Berkah_Jaya v0.0.0-20240903065552-055e854f0e7c
 	github.com/go-playground/locales v0.14.1
@@ -18,6 +17,7 @@ require (
 )
 
 require (
+	github.com/RaihanMalay21/helper_TB_Berkah_Jaya v0.0.0-20240909053141-859f0384e8e2 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
