@@ -12,8 +12,8 @@ import (
 	"gorm.io/gorm"
 	"strconv"
 
+	"github.com/RaihanMalay21/server-customer-tb-berkah-jaya-development/helper"
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
-	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
 
@@ -41,31 +41,39 @@ func InputNota(w http.ResponseWriter, r *http.Request) {
 	hashnameOnlyString := hex.EncodeToString(hasher[:])
 
 	// mengambil id dari session
-	session, err := config.Store.Get(r, "berkah-jaya-session")
-	if err != nil {
-		log.Println("error on line 27 function input nota")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	// session, err := config.Store.Get(r, "berkah-jaya-session")
+	// if err != nil {
+	// 	log.Println("error on line 27 function input nota")
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
 
-	// mendapatkan id dari session
-	idUser := session.Values["id"]
+	// // mendapatkan id dari session
+	// idUser := session.Values["id"]
+
+	idUser, err := helper.GetIDFromToken(r)
+	if err != nil {
+		log.Println(err)
+		message := map[string]interface{}{"message": err.Error()}
+		helper.Response(w, message, http.StatusInternalServerError)
+		return
+	}	
 	
 	// konversi id user dari interface ke int
-	idUserUint, ok := idUser.(uint)
-	if !ok {
-		log.Println("error on line 55 function input nota")
-		http.Error(w, "cannot Get ID user", http.StatusInternalServerError)
-		return
-	}
+	// idUserUint, ok := idUser.(uint)
+	// if !ok {
+	// 	log.Println("error on line 55 function input nota")
+	// 	http.Error(w, "cannot Get ID user", http.StatusInternalServerError)
+	// 	return
+	// }
 	// id int 
-	idInt := int(idUserUint)
+	idInt := int(idUser)
 	// konver idUserInt ke strring
 	idUserString := strconv.Itoa(idInt)
 	images := hashnameOnlyString + idUserString + ext
 
 	notaUser := models.Pembelian {
-		UserID: idUserUint,
+		UserID: idUser,
 		Image: images,
 	}
 

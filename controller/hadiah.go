@@ -4,15 +4,12 @@ import (
 	"log"
 	"net/http"
 	
+	"github.com/RaihanMalay21/server-customer-tb-berkah-jaya-development/helper"
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
-	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
 
 func Hadiah(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "https://fe-tb-berkah-jaya-750892348569.us-central1.run.app")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("Access-Control-Allow-Methods", "GET")
 	// inialisasi field hadiah
 	var gethadiah []models.Hadiah
 	if err := config.DB.Find(&gethadiah).Error; err != nil {

@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"github.com/go-playground/validator/v10"
 
+	"github.com/RaihanMalay21/server-customer-tb-berkah-jaya-development/helper"
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
-	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
 
@@ -59,13 +59,21 @@ func ExchangePoin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// take id from session
-	session, err := config.Store.Get(r, "berkah-jaya-session")
+	// session, err := config.Store.Get(r, "berkah-jaya-session")
+	// if err != nil {
+	// 	log.Println("cannot sign in to session")
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// idUser := session.Values["id"].(uint)
+
+	idUser, err := helper.GetIDFromToken(r)
 	if err != nil {
-		log.Println("cannot sign in to session")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println(err)
+		message := map[string]interface{}{"message": err.Error()}
+		helper.Response(w, message, http.StatusInternalServerError)
 		return
 	}
-	idUser := session.Values["id"].(uint)
     
 	// mengambil data poin yang dimiliki oleh user
 	var user models.User

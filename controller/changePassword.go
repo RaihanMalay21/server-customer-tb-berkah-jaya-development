@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 	"golang.org/x/crypto/bcrypt"
 
+	"github.com/RaihanMalay21/server-customer-tb-berkah-jaya-development/helper"
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
-	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
 
@@ -22,14 +22,21 @@ func ChangePassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// retreave id from session
-	session, err := config.Store.Get(r, "berkah-jaya-session")
+	// session, err := config.Store.Get(r, "berkah-jaya-session")
+	// if err != nil {
+	// 	log.Println("Error function ChangePassword cant get session")
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// IDUser := session.Values["id"]
+
+	IDUser, err := helper.GetIDFromToken(r)
 	if err != nil {
-		log.Println("Error function ChangePassword cant get session")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println(err)
+		message := map[string]interface{}{"message": err.Error()}
+		helper.Response(w, message, http.StatusInternalServerError)
 		return
 	}
-	IDUser := session.Values["id"]
-
 	
 	// retreaving password from database
 	var dataUser models.User

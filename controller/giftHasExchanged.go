@@ -3,20 +3,28 @@ package controller
 import (
 	"log"
 	"net/http" 
+	"github.com/RaihanMalay21/server-customer-tb-berkah-jaya-development/helper"
 	config "github.com/RaihanMalay21/config-tb-berkah-jaya-development"
-	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
 
 func GiftHasExchanged(w http.ResponseWriter, r *http.Request) {
 	// mengambil id user di session
-	session, err := config.Store.Get(r, "berkah-jaya-session")
+	// session, err := config.Store.Get(r, "berkah-jaya-session")
+	// if err != nil {
+	// 	log.Println("Error cant get session:", err.Error())
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// idUser := session.Values["id"].(uint)
+
+	idUser, err := helper.GetIDFromToken(r)
 	if err != nil {
-		log.Println("Error cant get session:", err.Error())
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println(err)
+		message := map[string]interface{}{"message": err.Error()}
+		helper.Response(w, message, http.StatusInternalServerError)
 		return
 	}
-	idUser := session.Values["id"].(uint)
 
 	// mengambil hadiah yang sudah di tukar oleh users dan tidak dapat di tukar kembali 
 	var hadiahHaveChange []models.HadiahUser
