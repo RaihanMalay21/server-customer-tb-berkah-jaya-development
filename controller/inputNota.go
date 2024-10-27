@@ -98,7 +98,7 @@ func InputNota(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// path folder dimana file akan dibuat nantinya
-	pathFile := helper.DestinationFolder("C:\\Users\\Raiha\\Documents\\TB_Berkah_Jaya\\static\\src\\images", notaUser.Image)
+	pathFile := helper.DestinationFolder("C:\\Users\\acer\\Documents\\project app\\development web berkah jaya\\fe_TB_Berkah_Jaya\\src\\images", notaUser.Image)
 
 	// creta img
 	outeFile, err := os.Create(pathFile)

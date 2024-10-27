@@ -10,7 +10,7 @@ import (
 	models "github.com/RaihanMalay21/models_TB_Berkah_Jaya"
 )
 
-func RemoveSubmissionPoin (w http.ResponseWriter, r *http.Request) {
+func RemoveSubmissionPoin(w http.ResponseWriter, r *http.Request) {
 	var pembelian models.Pembelian
 	jsonDecoder := json.NewDecoder(r.Body)
 	if err := jsonDecoder.Decode(&pembelian); err != nil {
