@@ -56,6 +56,8 @@ func JWTMiddleware(next http.Handler) http.Handler {
 			role := claims.Role
 			endpoint := r.URL.Path
 
+			fmt.Println(claims)
+
 			if err := endPoinCanAccess(role, endpoint); err != nil {
 				log.Println("Access denied to endpoint:", err)
 				message["message"] = err.Error()
